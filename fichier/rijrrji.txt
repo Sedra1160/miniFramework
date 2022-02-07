@@ -1,0 +1,37 @@
+x = None
+prob = None
+
+# YOUR CODE HERE
+regime3 = pd.read_csv('regime3.csv')
+prix = np.delete(np.delete(np.array(regime3["Prix"]), -1), -1)
+calories = np.delete(np.delete(np.array(regime3["Calories"]), -1), -1)
+gras = np.delete(np.delete(np.array(regime3["Gras"]), -1), -1)
+acide = np.delete(np.delete(np.array(regime3["Acide gras saturé"]), -1), -1)
+grastrans = np.delete(np.delete(np.array(regime3["Gras trans"]), -1), -1)
+cholesterol = np.delete(np.delete(np.array(regime3["Cholesterol"]), -1), -1)
+sodium = np.delete(np.delete(np.array(regime3["Sodium"]), -1), -1)
+carbohydrate = np.delete(np.delete(np.array(regime3["Carbohydrate"]), -1), -1)
+fibre = np.delete(np.delete(np.array(regime3["Fibre"]), -1), -1)
+sucre = np.delete(np.delete(np.array(regime3["Sucre"]), -1), -1)
+proteine = np.delete(np.delete(np.array(regime3["Protéine"]), -1), -1)
+A = np.delete(np.delete(np.array(regime3["Vitamine A"]), -1), -1)
+C = np.delete(np.delete(np.array(regime3["Vitamine C"]), -1), -1)
+calcium = np.delete(np.delete(np.array(regime3["Calcium"]), -1), -1)
+fer = np.delete(np.delete(np.array(regime3["Fer"]), -1), -1)
+
+
+x = cp.Variable(16)
+objectif = cp.Minimize(prix.T@x)
+contraintes = [calories@x >= 1900 , calories@x <= 2200 , gras@x >= 30 , gras@x <= 75 , acide@x >= 0 , 
+               acide@x <= 25 , grastrans@x >= 0 , grastrans@x <= 2 , cholesterol@x >= 0 , cholesterol@x <= 300 , 
+               sodium@x >= 1500 , sodium@x <= 2300 , carbohydrate@x >= 150 , carbohydrate@x <= 300 , fibre@x >= 20 , 
+               fibre@x <= 50 , sucre@x >= 0 , sucre@x <= 50 , proteine@x >= 50 , proteine@x <= 160 , 
+               A@x >= 3000 , A@x <= 7000 , C@x >= 300 , C@x <= 100000 , calcium@x >= 1000 , 
+               calcium@x <= 100000 , fer@x >= 18 , fer@x <= 40 , x >= 0]
+prob = cp.Problem(objectif, contraintes)
+
+prob.solve()
+opt_val3 = prob.value
+opt_sol3 = x.value
+print(f"The optimal value is {opt_val3}")
+print(f"A solution x is {opt_sol3}")

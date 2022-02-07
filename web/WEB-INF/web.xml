@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>servlet.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccueilEmp</servlet-name>
+        <servlet-class>servlet.AccueilEmp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccueilAdmin</servlet-name>
+        <servlet-class>servlet.AccueilAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>servlet.FrontController</servlet-class>
+        <multipart-config>
+            <max-file-size>209715520</max-file-size>
+            <!-- 20 Mo -->
+            <max-request-size>52428800</max-request-size>
+            <!-- 5 x 10 Mo -->
+            <file-size-threshold>1048576</file-size-threshold>
+            <!-- 1 Mo -->
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccueilEmp</servlet-name>
+        <url-pattern>/AccueilEmp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/servlet/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccueilAdmin</servlet-name>
+        <url-pattern>/AccueilAdmin</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
